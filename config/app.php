@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'aliases' => [
+    // ...
+    'Str' => Illuminate\Support\Str::class,
+],
 ];
