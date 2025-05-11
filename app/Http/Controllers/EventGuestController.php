@@ -51,4 +51,15 @@ class EventGuestController extends Controller
 
         return response()->json(['message' => 'Inscrição cancelada']);
     }
+    public function myEvents()
+    {
+        $user = Auth::guard('api')->user();
+
+        $events = \App\Models\Event::whereHas('guests', function($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->get();
+
+        return response()->json($events);
+    }
+
 }
