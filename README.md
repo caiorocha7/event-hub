@@ -108,14 +108,6 @@ Servidor roda em `http://localhost:8000`
 php artisan test --testsuite=Unit
 ```
 
-## 🤝 Como Contribuir
-
-1. Faça um fork deste repositório
-2. Crie sua branch de feature (`git checkout -b feature/incrivel`)
-3. Commit suas alterações (`git commit -m 'Adiciona recurso incrível'`)
-4. Push para a branch (`git push origin feature/incrivel`)
-5. Abra um Pull Request
-
 <div align="center">
 
 Feito por [Caio Rocha](https://github.com/caiorocha7)
