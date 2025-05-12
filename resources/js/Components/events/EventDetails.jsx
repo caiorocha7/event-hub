@@ -7,15 +7,21 @@ const EventDetails = () => {
   const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
   const [error, setError] = useState(null);
-  const [subscribeError, setSubscribeError] = useState(null);
-  const [subscribeLoading, setSubscribeLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
-    const fetchEvent = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get(`/events/${uuid}`);
-        setEvent(response.data);
+        // Busca o evento
+        const eventResponse = await api.get(`/events/${uuid}`);
+        setEvent(eventResponse.data);
+
+        // Busca o usuário logado
+        const userResponse = await api.get('/auth/me');
+        setUserId(userResponse.data.id);
+
       } catch (err) {
         setError('Erro ao carregar evento');
       } finally {
@@ -23,31 +29,47 @@ const EventDetails = () => {
       }
     };
 
-    fetchEvent();
+    fetchData();
   }, [uuid]);
 
+  const isOwner = event && userId && event.owner_id === userId;
+  const isSubscribed = event?.guests?.some(guest => guest.user_id === userId);
+
   const handleSubscribe = async () => {
-    setSubscribeError(null);
-    setSubscribeLoading(true);
-    
+    setError(null);
+    setActionLoading(true);
     try {
       await api.post(`/events/${uuid}/subscribe`);
       navigate('/my-events');
     } catch (err) {
-      setSubscribeError(err.response?.data?.error || 'Erro ao se inscrever no evento');
+      setError(err.response?.data?.error || 'Erro ao se inscrever');
     } finally {
-      setSubscribeLoading(false);
+      setActionLoading(false);
     }
+  };
+
+  const handleUnsubscribe = async () => {
+    setError(null);
+    setActionLoading(true);
+    try {
+      await api.delete(`/events/${uuid}/unsubscribe`);
+      navigate('/my-events');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Erro ao cancelar inscrição');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR') + ' às ' + 
+           date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   };
 
   if (loading) return <div>Carregando...</div>;
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (!event) return <div>Evento não encontrado</div>;
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('pt-BR') + ' às ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-  };
 
   return (
     <div className="event-details-container">
@@ -67,16 +89,36 @@ const EventDetails = () => {
       
       <h3>Informações do evento</h3>
       <p className="event-description">{event.description}</p>
-      
-      {subscribeError && <div className="alert alert-danger">{subscribeError}</div>}
-      
-      <button 
-        onClick={handleSubscribe} 
-        className="btn-primary"
-        disabled={subscribeLoading}
-      >
-        {subscribeLoading ? 'Processando...' : 'Inscrever-se'}
-      </button>
+
+      {error && <div className="alert alert-danger">{error}</div>}
+
+      {!isOwner && (
+        <div className="event-actions">
+          {isSubscribed ? (
+            <button
+              className="btn-danger"
+              onClick={handleUnsubscribe}
+              disabled={actionLoading}
+            >
+              {actionLoading ? 'Cancelando...' : 'Cancelar Inscrição'}
+            </button>
+          ) : (
+            <button
+              className="btn-primary"
+              onClick={handleSubscribe}
+              disabled={actionLoading}
+            >
+              {actionLoading ? 'Inscrevendo...' : 'Inscrever-se'}
+            </button>
+          )}
+        </div>
+      )}
+
+      {isOwner && (
+        <div className="alert alert-info">
+          Você é o organizador deste evento
+        </div>
+      )}
     </div>
   );
 };

@@ -41,7 +41,7 @@ Permite **criar, editar, listar e se inscrever** em eventos, com integração au
 
 ```bash
 # Clone o repositório
-git clone SEU_REPOSITORIO
+git clone https://github.com/caiorocha7/event-hub
 cd event-hub
 
 # Instale as dependências
