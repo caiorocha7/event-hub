@@ -37,4 +37,5 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/subscribe', [EventGuestController::class, 'subscribe']);
         Route::delete('/unsubscribe', [EventGuestController::class, 'unsubscribe']);
     });
+    Route::get('/my-events', [EventGuestController::class, 'myEvents']);
 });

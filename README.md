@@ -21,7 +21,7 @@ Permite **criar, editar, listar e se inscrever** em eventos, com integração au
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend:
-- Laravel 10+
+- Laravel 11
 - PostgreSQL ou MySQL
 - JWT Auth
 
@@ -63,8 +63,9 @@ php artisan migrate
 # Inicie o servidor Laravel
 php artisan serve
 
-### 2. Frontend (React + Vite)
+---
 
+### 2. Frontend (React + Vite)
 ```bash
 # Instale as dependências do frontend
 npm install

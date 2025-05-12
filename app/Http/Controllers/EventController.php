@@ -143,4 +143,20 @@ class EventController extends Controller
 
         return response()->json(['message' => 'Evento removido com sucesso']);
     }
+    public function myEvents()
+    {
+        $user = Auth::guard('api')->user();
+
+        $events = Event::with(['owner'])
+            ->where(function($query) use ($user) {
+                $query->where('owner_id', $user->id)
+                    ->orWhereHas('guests', function($q) use ($user) {
+                        $q->where('user_id', $user->id);
+                    });
+            })
+            ->orderBy('starts_at', 'desc')
+            ->get();
+
+        return response()->json($events);
+    }
 }

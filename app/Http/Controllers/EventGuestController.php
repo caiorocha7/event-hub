@@ -55,11 +55,17 @@ class EventGuestController extends Controller
     {
         $user = Auth::guard('api')->user();
 
-        $events = \App\Models\Event::whereHas('guests', function($q) use ($user) {
-            $q->where('user_id', $user->id);
-        })->get();
+        $events = Event::with(['owner'])
+            ->where(function($query) use ($user) {
+                $query->where('owner_id', $user->id)
+                    ->orWhereHas('guests', function($q) use ($user) {
+                        $q->where('user_id', $user->id);
+                    });
+            })
+            ->get();
 
         return response()->json($events);
     }
+
 
 }

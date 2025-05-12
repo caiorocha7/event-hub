@@ -26,7 +26,7 @@ class Event extends BaseModel
 
     public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     public function guests()
