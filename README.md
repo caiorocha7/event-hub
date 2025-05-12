@@ -72,7 +72,6 @@ Servidor roda em `http://localhost:8000`
 | `GET` | `/api/my-events` | Eventos do usuário |
 
 📸 Prints do Sistema
-📸 Prints do Sistema
 
 <div align="center">
 
