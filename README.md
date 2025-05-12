@@ -57,8 +57,9 @@ npm run dev
 
 Servidor roda em `http://localhost:8000`
 
-## 🔗 Endpoints da API
+## 🔗 Endpoints
 
+### API (Backend)
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | `POST` | `/api/auth/register` | Registro de usuário |
@@ -71,6 +72,16 @@ Servidor roda em `http://localhost:8000`
 | `DELETE` | `/api/events/{uuid}/unsubscribe` | Sair do evento |
 | `GET` | `/api/my-events` | Eventos do usuário |
 
+### Rotas Frontend (React)
+| Rota | Descrição |
+|------|-----------|
+| `/` | Página inicial com eventos ativos |
+| `/login` | Tela de autenticação |
+| `/register` | Tela de cadastro de usuário |
+| `/events/create` | Formulário de criação de evento |
+| `/events/{uuid}` | Detalhes do evento + inscrição |
+| `/my-events` | Eventos do usuário (criados/inscritos) |
+| `/events/edit/{uuid}` | Edição de evento (apenas dono) |
 
 📸 Prints do Sistema
 
