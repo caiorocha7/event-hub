@@ -33,7 +33,12 @@ const Register = () => {
     }
 
     try {
-      await register(formData.username, formData.email, formData.password, formData.password_confirmation);
+      await register(
+        formData.username,
+        formData.email,
+        formData.password,
+        formData.password_confirmation
+      );
       setSuccess('Cadastro realizado com sucesso! Você será redirecionado para login.');
       setTimeout(() => {
         navigate('/login');
@@ -47,71 +52,73 @@ const Register = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-form">
-        <h2>Cadastre-se</h2>
-        <p>Crie sua conta para participar dos eventos</p>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h2 className="form-title">Cadastre-se</h2>
+        <p className="form-subtitle">Crie sua conta para participar dos eventos</p>
 
         {error && <Alert type="danger" message={error} />}
         {success && <Alert type="success" message={success} />}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Nome de usuário</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Digite seu nome de usuário"
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="username" className="form-label">Nome de usuário</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            className="form-control"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Digite seu nome de usuário"
+            required
+          />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Digite seu email"
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className="form-control"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Digite seu email"
+            required
+          />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Senha</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Digite sua senha"
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="password" className="form-label">Senha</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            className="form-control"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Digite sua senha"
+            required
+          />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="password_confirmation">Confirme a senha</label>
-            <input
-              type="password"
-              id="password_confirmation"
-              name="password_confirmation"
-              value={formData.password_confirmation}
-              onChange={handleChange}
-              placeholder="Confirme sua senha"
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="password_confirmation" className="form-label">Confirme a senha</label>
+          <input
+            type="password"
+            id="password_confirmation"
+            name="password_confirmation"
+            className="form-control"
+            value={formData.password_confirmation}
+            onChange={handleChange}
+            placeholder="Confirme sua senha"
+            required
+          />
+        </div>
 
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Cadastrando...' : 'Cadastrar'}
-          </button>
-        </form>
-      </div>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Cadastrando...' : 'Cadastrar'}
+        </button>
+      </form>
     </div>
   );
 };

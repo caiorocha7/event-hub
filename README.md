@@ -71,6 +71,38 @@ Servidor roda em `http://localhost:8000`
 | `DELETE` | `/api/events/{uuid}/unsubscribe` | Sair do evento |
 | `GET` | `/api/my-events` | Eventos do usuário |
 
+📸 Prints do Sistema
+📸 Prints do Sistema
+
+<div align="center">
+
+**Cadastro de Usuário**  
+<img src="docs/prints/cadastro.png" alt="Cadastro de Usuário" width="500"/>
+
+**Tela de Login**  
+<img src="docs/prints/login.png" alt="Tela de Login" width="500"/>
+
+**Página Inicial (Eventos)**  
+<img src="docs/prints/tela-principal.png" alt="Página Inicial" width="500"/>
+
+**Tela de Detalhes do Evento**  
+<img src="docs/prints/tela-evento.png" alt="Tela de Evento" width="500"/>
+
+**Acesso a Evento Privado**  
+<img src="docs/prints/acesso-evento.png" alt="Acesso a Evento" width="500"/>
+
+**Cadastro de Novo Evento**  
+<img src="docs/prints/cadastro-evento.png" alt="Cadastro de Evento" width="500"/>
+
+**Confirmação de Inscrição em Evento**  
+<img src="docs/prints/evento-inscrito.png" alt="Evento Inscrito" width="500"/>
+
+**Eventos em que o Usuário Está Inscrito**  
+<img src="docs/prints/inscrito.png" alt="Eventos Inscritos" width="500"/>
+
+</div>
+
+
 ## 🧪 Testes
 ```bash
 php artisan test --testsuite=Unit
