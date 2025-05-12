@@ -12,14 +12,17 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-container">
+      <nav className="navbar">
         <Link to="/" className="logo">Event Hub</Link>
-        <nav className="nav-links">
+
+        <div className="nav-group">
           {token ? (
             <>
               <Link to="/my-events">Meus Eventos</Link>
               <Link to="/events/create">Criar Evento</Link>
-              <button onClick={handleLogout} className="btn-primary" style={{marginLeft: 10}}>Sair</button>
+              <button onClick={handleLogout} className="btn btn-primary btn-logout">
+                Sair
+              </button>
             </>
           ) : (
             <>
@@ -27,8 +30,8 @@ const Header = () => {
               <Link to="/register">Cadastrar</Link>
             </>
           )}
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
   );
 };

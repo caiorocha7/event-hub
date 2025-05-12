@@ -110,6 +110,11 @@ Por padrão, o frontend será servido junto com o Laravel em http://localhost:80
 
 ---
 
+## Rodar testes unitários:
+php artisan test --testsuite=Unit
+
+---
+
 ## 🤝 Como Contribuir
 
 1. **Fork** este repositório
