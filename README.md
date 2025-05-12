@@ -1,125 +1,99 @@
-# 📅 Event Hub
+<div align="center">
 
-Sistema completo para **gestão de eventos, inscrições e autenticação JWT**, com frontend em **React (SPA)** e backend em **Laravel**.  
-Permite **criar, editar, listar e se inscrever** em eventos, com integração automática de endereço via **ViaCEP**.
+# 🎪 Event Hub
+
+Uma plataforma completa de gerenciamento de eventos com autenticação JWT, construída com **React (SPA)** e **Laravel**.  
+Crie, gerencie e participe de eventos com integração automática de endereços via **ViaCEP**.
+
+[![Laravel][Laravel.com]][Laravel-url] [![React][React.js]][React-url] [![JWT][JWT.io]][JWT-url]
+
+</div>
 
 ---
 
-## 🚀 Funcionalidades
+## 🚀 Principais Recursos
 
-- Cadastro e login de usuários com autenticação JWT
-- Listagem de eventos ativos
-- Criação, edição e exclusão de eventos (restrito ao criador)
-- Inscrição e cancelamento de inscrição em eventos
-- Visualização de eventos do usuário (como dono ou participante)
-- Integração automática de endereço via CEP (ViaCEP)
+- Registro e login de usuários com autenticação JWT
+- Listagem e gerenciamento de eventos ativos
+- Operações CRUD de eventos (restritas ao proprietário)
+- Sistema de inscrição em eventos
+- Autopreenchimento de endereço via CEP (ViaCEP)
 - Validações robustas e mensagens de erro amigáveis
-- SPA responsiva com navegação protegida
-
----
+- SPA responsiva com rotas protegidas
 
 ## 🛠️ Tecnologias Utilizadas
 
-### Backend:
-- Laravel 11
-- PostgreSQL ou MySQL
-- JWT Auth
+<div align="center">
 
-### Frontend:
-- React (com Vite)
-- Axios
-- React Router
+| Backend | Frontend | API Externa |
+|---------|----------|-------------|
+| Laravel 11 | React + Vite | [ViaCEP](https://viacep.com.br) |
+| PostgreSQL/MySQL | Axios | |
+| JWT Auth | React Router | |
 
-### API Externa:
-- [ViaCEP](https://viacep.com.br) (consulta de endereço por CEP)
+</div>
 
----
+## ⚙️ Instalação
 
-## ⚙️ Instalação e Execução
-
-### 1. Backend (Laravel)
-
+### Configuração do Backend
 ```bash
-# Clone o repositório
 git clone https://github.com/caiorocha7/event-hub
 cd event-hub
 
-# Instale as dependências
 composer install
 
-# Configure o .env
 cp .env.example .env
-# Edite as variáveis de ambiente conforme necessário
-
-# Gere a chave da aplicação
 php artisan key:generate
-
-# Configure o JWT
 php artisan jwt:secret
-
-# Rode as migrations
 php artisan migrate
-
-# Inicie o servidor Laravel
 php artisan serve
+```
 
----
-
-### 2. Frontend (React + Vite)
+### Configuração do Frontend
 ```bash
-# Instale as dependências do frontend
 npm install
-
-# Inicie o Vite (em outro terminal)
 npm run dev
+```
 
-Por padrão, o frontend será servido junto com o Laravel em http://localhost:8000.
+Servidor roda em `http://localhost:8000`
 
-## 🔁 Configuração das Rotas
+## 🔗 Endpoints da API
 
-- **Rotas da API:** definidas em `routes/api.php` e protegidas por middleware JWT (`auth:api`)
-- **Rotas do Frontend (SPA):** fallback configurado em `routes/web.php` para entregar `resources/views/app.blade.php`
-- **Ponto de entrada do React:** `resources/js/index.jsx`
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `POST` | `/api/auth/register` | Registro de usuário |
+| `POST` | `/api/auth/login` | Autenticação JWT |
+| `GET` | `/api/events` | Listar eventos ativos |
+| `POST` | `/api/events` | Criar evento |
+| `PUT` | `/api/events/{uuid}` | Atualizar evento |
+| `DELETE` | `/api/events/{uuid}` | Deletar evento |
+| `POST` | `/api/events/{uuid}/subscribe` | Participar de evento |
+| `DELETE` | `/api/events/{uuid}/unsubscribe` | Sair do evento |
+| `GET` | `/api/my-events` | Eventos do usuário |
 
----
-
-## 🔗 Principais Endpoints da API
-
-| Método | Rota                                      | Descrição                           |
-|--------|-------------------------------------------|-------------------------------------|
-| POST   | `/api/auth/register`                     | Cadastro de usuário                 |
-| POST   | `/api/auth/login`                        | Login e obtenção do token JWT       |
-| GET    | `/api/events`                            | Listar eventos ativos               |
-| POST   | `/api/events`                            | Criar evento (autenticado)          |
-| PUT    | `/api/events/{uuid}`                     | Editar evento (apenas criador)      |
-| DELETE | `/api/events/{uuid}`                     | Excluir evento (apenas criador)     |
-| POST   | `/api/events/{uuid}/subscribe`           | Inscrição em evento                 |
-| DELETE | `/api/events/{uuid}/unsubscribe`         | Cancelar inscrição                  |
-| GET    | `/api/my-events`                         | Eventos em que o usuário participa |
-
----
-
-## 💻 Funcionalidades do Frontend
-
-- Armazenamento de token JWT no localStorage
-- Navegação protegida por autenticação
-- Listagem de eventos com cards interativos e responsivos
-- Formulário de criação/edição de eventos com busca de endereço via CEP
-- Página "Meus Eventos" para exibição de eventos do usuário
-- Feedbacks visuais para erros, validações e ações bem-sucedidas
-
----
-
-## Rodar testes unitários:
+## 🧪 Testes
+```bash
 php artisan test --testsuite=Unit
-
----
+```
 
 ## 🤝 Como Contribuir
 
-1. **Fork** este repositório
-2. Crie uma nova branch:  
-   `git checkout -b minha-feature`
-3. Faça suas modificações e commit:  
-   `git commit -m 'Minha feature'`
-4. Envie sua branch para
+1. Faça um fork deste repositório
+2. Crie sua branch de feature (`git checkout -b feature/incrivel`)
+3. Commit suas alterações (`git commit -m 'Adiciona recurso incrível'`)
+4. Push para a branch (`git push origin feature/incrivel`)
+5. Abra um Pull Request
+
+<div align="center">
+
+Feito por [Caio Rocha](https://github.com/caiorocha7)
+
+</div>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[JWT.io]: https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white
+[JWT-url]: https://jwt.io
