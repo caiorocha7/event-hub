@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎪 Event Hub
+# 📍 Event Hub
 
 Uma plataforma completa de gerenciamento de eventos com autenticação JWT, construída com **React (SPA)** e **Laravel**.  
 Crie, gerencie e participe de eventos com integração automática de endereços via **ViaCEP**.
@@ -71,7 +71,7 @@ Servidor roda em `http://localhost:8000`
 | `DELETE` | `/api/events/{uuid}/unsubscribe` | Sair do evento |
 | `GET` | `/api/my-events` | Eventos do usuário |
 
-📸 Prints do Sistema
+
 📸 Prints do Sistema
 
 <div align="center">
