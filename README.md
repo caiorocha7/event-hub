@@ -1,61 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📅 Event Hub
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema completo para **gestão de eventos, inscrições e autenticação JWT**, com frontend em **React (SPA)** e backend em **Laravel**.  
+Permite **criar, editar, listar e se inscrever** em eventos, com integração automática de endereço via **ViaCEP**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Funcionalidades
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Cadastro e login de usuários com autenticação JWT
+- Listagem de eventos ativos
+- Criação, edição e exclusão de eventos (restrito ao criador)
+- Inscrição e cancelamento de inscrição em eventos
+- Visualização de eventos do usuário (como dono ou participante)
+- Integração automática de endereço via CEP (ViaCEP)
+- Validações robustas e mensagens de erro amigáveis
+- SPA responsiva com navegação protegida
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠️ Tecnologias Utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Backend:
+- Laravel 10+
+- PostgreSQL ou MySQL
+- JWT Auth
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Frontend:
+- React (com Vite)
+- Axios
+- React Router
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### API Externa:
+- [ViaCEP](https://viacep.com.br) (consulta de endereço por CEP)
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ⚙️ Instalação e Execução
 
-### Premium Partners
+### 1. Backend (Laravel)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+# Clone o repositório
+git clone SEU_REPOSITORIO
+cd event-hub
 
-## Contributing
+# Instale as dependências
+composer install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Configure o .env
+cp .env.example .env
+# Edite as variáveis de ambiente conforme necessário
 
-## Code of Conduct
+# Gere a chave da aplicação
+php artisan key:generate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Configure o JWT
+php artisan jwt:secret
 
-## Security Vulnerabilities
+# Rode as migrations
+php artisan migrate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Inicie o servidor Laravel
+php artisan serve
 
-## License
+### 2. Frontend (React + Vite)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Instale as dependências do frontend
+npm install
+
+# Inicie o Vite (em outro terminal)
+npm run dev
+
+Por padrão, o frontend será servido junto com o Laravel em http://localhost:8000.
+
+## 🔁 Configuração das Rotas
+
+- **Rotas da API:** definidas em `routes/api.php` e protegidas por middleware JWT (`auth:api`)
+- **Rotas do Frontend (SPA):** fallback configurado em `routes/web.php` para entregar `resources/views/app.blade.php`
+- **Ponto de entrada do React:** `resources/js/index.jsx`
+
+---
+
+## 🔗 Principais Endpoints da API
+
+| Método | Rota                                      | Descrição                           |
+|--------|-------------------------------------------|-------------------------------------|
+| POST   | `/api/auth/register`                     | Cadastro de usuário                 |
+| POST   | `/api/auth/login`                        | Login e obtenção do token JWT       |
+| GET    | `/api/events`                            | Listar eventos ativos               |
+| POST   | `/api/events`                            | Criar evento (autenticado)          |
+| PUT    | `/api/events/{uuid}`                     | Editar evento (apenas criador)      |
+| DELETE | `/api/events/{uuid}`                     | Excluir evento (apenas criador)     |
+| POST   | `/api/events/{uuid}/subscribe`           | Inscrição em evento                 |
+| DELETE | `/api/events/{uuid}/unsubscribe`         | Cancelar inscrição                  |
+| GET    | `/api/my-events`                         | Eventos em que o usuário participa |
+
+---
+
+## 💻 Funcionalidades do Frontend
+
+- Armazenamento de token JWT no localStorage
+- Navegação protegida por autenticação
+- Listagem de eventos com cards interativos e responsivos
+- Formulário de criação/edição de eventos com busca de endereço via CEP
+- Página "Meus Eventos" para exibição de eventos do usuário
+- Feedbacks visuais para erros, validações e ações bem-sucedidas
+
+---
+
+## 🤝 Como Contribuir
+
+1. **Fork** este repositório
+2. Crie uma nova branch:  
+   `git checkout -b minha-feature`
+3. Faça suas modificações e commit:  
+   `git commit -m 'Minha feature'`
+4. Envie sua branch para
